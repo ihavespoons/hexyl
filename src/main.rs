@@ -537,11 +537,7 @@ pub struct NonNegativeI64(i64);
 
 impl NonNegativeI64 {
     pub fn new(x: i64) -> Option<Self> {
-        if x.is_negative() {
-            None
-        } else {
-            Some(Self(x))
-        }
+        (x >= 0).then_some(Self(x))
     }
 
     pub fn into_inner(self) -> i64 {
@@ -597,11 +593,7 @@ pub struct PositiveI64(i64);
 
 impl PositiveI64 {
     pub fn new(x: i64) -> Option<Self> {
-        if x < 1 {
-            None
-        } else {
-            Some(Self(x))
-        }
+        (x > 0 && x < i64::MAX).then_some(Self(x))
     }
 
     pub fn into_inner(self) -> i64 {
